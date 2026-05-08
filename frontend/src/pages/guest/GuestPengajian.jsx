@@ -135,7 +135,7 @@ export default function GuestPengajian() {
                     {/* Pembagian Ruang */}
                     {selected.pembagianRuang?.length > 0 && (
                       <div className="mt-8 p-5 bg-stone-50 dark:bg-stone-950/50 rounded-2xl border border-stone-100 dark:border-stone-800">
-                        <p className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-4">📍 Alokasi Ruangan</p>
+                        <p className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-4">📍 Lokasi Ruangan</p>
                         <div className="flex flex-wrap gap-3">
                           {selected.pembagianRuang.map((r, i) => (
                             <div key={i} className="text-sm bg-white dark:bg-stone-800 text-stone-700 dark:text-stone-300 px-4 py-2.5 rounded-xl shadow-sm border border-stone-200 dark:border-stone-700">

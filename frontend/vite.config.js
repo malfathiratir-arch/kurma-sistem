@@ -6,13 +6,12 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
+        // Saat development (lokal), arahkan ke localhost
+        // Saat produksi, ini biasanya tidak terpakai jika Anda menggunakan URL lengkap di axios/api utils
         target: 'http://localhost:5000',
         changeOrigin: true,
       },
-      '/uploads': {
-        target: 'http://localhost:5000',
-        changeOrigin: true,
-      }
+      // BAGIAN /uploads DIHAPUS karena gambar sekarang pakai URL Cloudinary (https://res.cloudinary.com/...)
     }
   }
 })
