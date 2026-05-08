@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const fotoSchema = new mongoose.Schema({
   url:   { type: String, required: true },
+  public_id: { type: String, required: true },
   title: { type: String, default: '' },
   desc:  { type: String, default: '' },
 }, { _id: false });

@@ -13,7 +13,8 @@ app.use(cors({
   origin: [
     'http://localhost:5173', 
     'http://localhost:3000', 
-    'https://project-ylnn9.vercel.app' // <--- WAJIB TAMBAH INI
+    'https://project-ylnn9.vercel.app', // <--- WAJIB TAMBAH INI
+    'https://nama-web-kamu.onrender.com'
   ],
   credentials: true,
 }));
