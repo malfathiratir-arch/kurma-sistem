@@ -2,7 +2,7 @@ const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const multer = require('multer');
 
-// Pastikan data ini nanti diisi di file .env
+// Pastikan variabel ini ada di .env (lokal) dan di Environment Render (online)
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
@@ -12,11 +12,11 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'kurma_uploads', // Nama folder di dashboard Cloudinary nanti
+    folder: 'kurma_uploads', // Folder ini akan otomatis dibuat di akun Cloudinary Anda
     allowed_formats: ['jpg', 'png', 'jpeg'],
   },
 });
 
-const uploadCloud = multer({ storage: storage });
+const uploadCloud = multer({ storage });
 
 module.exports = uploadCloud;
