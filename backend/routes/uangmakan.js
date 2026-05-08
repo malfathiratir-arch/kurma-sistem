@@ -50,3 +50,33 @@ router.delete('/:id', auth, isKetua, async (req, res) => {
 });
 
 module.exports = router;
+
+// 4. UPDATE
+router.put('/:id', auth, isKetua, async (req, res) => {
+  try {
+    const { nama, nominal, kelas } = req.body;
+
+    const updated = await UangMakan.findByIdAndUpdate(
+      req.params.id,
+      {
+        nama,
+        nominal,
+        kelas
+      },
+      { new: true }
+    );
+
+    if (!updated) {
+      return res.status(404).json({
+        message: 'Data tidak ditemukan'
+      });
+    }
+
+    res.json(updated);
+
+  } catch (err) {
+    res.status(500).json({
+      message: err.message
+    });
+  }
+});
