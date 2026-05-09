@@ -34,6 +34,7 @@ app.use('/api/sumbangan',   require('./routes/sumbangan'));
 app.use('/api/uang-Makan',   require('./routes/uangmakan'));
 app.use('/api/piket',   require('./routes/piket'));
 app.use('/api/absensi', require('./routes/absensi'));
+app.use('/api/pengurus', require('./routes/pengurus'));
 
 // Health check
 app.get('/api/health', (_, res) => res.json({ status: 'OK', time: new Date() }));
