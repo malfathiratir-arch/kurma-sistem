@@ -9,13 +9,25 @@ const app = express();
 // ── Middleware ──────────────────────────────────────────────
 // ── Middleware ──────────────────────────────────────────────
 app.use(cors({
-  // Tambahkan domain Vercel kamu di dalam array ini
-  origin: [
-    'http://localhost:5173', 
-    'http://localhost:3000', 
-    'https://project-ylnn9.vercel.app', // <--- WAJIB TAMBAH INI
-    'https://nama-web-kamu.onrender.com'
-  ],
+  origin: (origin, callback) => {
+    // Izinkan request tanpa origin (mobile app, Postman, dll.)
+    if (!origin) return callback(null, true);
+
+    // Izinkan localhost port berapa pun (Flutter Web)
+    if (
+      origin.startsWith('http://localhost:') ||
+      origin.startsWith('http://127.0.0.1:')
+    ) {
+      return callback(null, true);
+    }
+
+    // Izinkan website React kamu
+    if (origin === 'https://project-ylnn9.vercel.app') {
+      return callback(null, true);
+    }
+
+    callback(new Error('Not allowed by CORS'));
+  },
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
