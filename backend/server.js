@@ -8,18 +8,15 @@ const app = express();
 
 // ── Middleware ──────────────────────────────────────────────
 // ── Middleware ──────────────────────────────────────────────
-// ── Middleware CORS (Updated untuk Flutter & React) ──────────
 app.use(cors({
   origin: (origin, callback) => {
-    // Izinkan request tanpa origin (Mobile App Flutter, Postman, Android/iOS Native)
+    // Izinkan request tanpa origin (mobile app, Postman, dll.)
     if (!origin) return callback(null, true);
 
-    // Izinkan localhost / 127.0.0.1 port berapa pun (Flutter Web / Dev)
+    // Izinkan localhost port berapa pun (Flutter Web)
     if (
       origin.startsWith('http://localhost:') ||
-      origin.startsWith('http://127.0.0.1:') ||
-      origin.startsWith('http://192.168.') || // IP Lokal HP/Emulator
-      origin.startsWith('http://10.0.2.2:')    // IP Emulator Android
+      origin.startsWith('http://127.0.0.1:')
     ) {
       return callback(null, true);
     }
@@ -29,13 +26,12 @@ app.use(cors({
       return callback(null, true);
     }
 
-    // Izinkan semua origin saat development jika belum terdaftar
-    return callback(null, true);
+    callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
 }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Static file serving untuk upload foto
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
