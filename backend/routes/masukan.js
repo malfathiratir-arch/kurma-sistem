@@ -86,5 +86,35 @@ router.delete('/:id', async (req, res) => {
     });
   }
 });
+// 🟡 [PATCH] /api/masukan/:id/toggle - Toggle status isVisible oleh Admin
+router.patch('/:id/toggle', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const masukanItem = await Masukan.findById(id);
+
+    if (!masukanItem) {
+      return res.status(404).json({
+        success: false,
+        message: 'Data masukan tidak ditemukan',
+      });
+    }
+
+    masukanItem.isVisible = !masukanItem.isVisible;
+    await masukanItem.save();
+
+    return res.status(200).json({
+      success: true,
+      message: `Masukan berhasil ${masukanItem.isVisible ? 'ditampilkan' : 'disembunyikan'}`,
+      data: masukanItem,
+    });
+  } catch (error) {
+    console.error('Error toggle visibility:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Gagal mengubah status masukan',
+      error: error.message,
+    });
+  }
+});
 
 module.exports = router;

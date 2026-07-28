@@ -21,6 +21,7 @@ const masukanSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    isVisible: { type: Boolean, default: true },
   },
   {
     timestamps: true, // Otomatis membuat createdAt dan updatedAt
