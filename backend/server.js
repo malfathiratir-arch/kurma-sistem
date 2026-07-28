@@ -5,6 +5,7 @@ const path = require('path');
 const pengurusRoute = require('./routes/pengurus');
 require('dotenv').config();
 const app = express();
+const masukanRoutes = require('./routes/masukan');
 
 // ── Middleware ──────────────────────────────────────────────
 // ── Middleware ──────────────────────────────────────────────
@@ -47,7 +48,7 @@ app.use('/api/uang-Makan',   require('./routes/uangmakan'));
 app.use('/api/piket',   require('./routes/piket'));
 app.use('/api/absensi', require('./routes/absensi'));
 app.use('/api/pengurus', require('./routes/pengurus'));
-
+app.use('/api/masukan',require( './routes/masukan'));
 // Health check
 app.get('/api/health', (_, res) => res.json({ status: 'OK', time: new Date() }));
 
