@@ -21,11 +21,15 @@ const masukanSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    key: { type: String, required: true, unique: true },
+  value: { type: mongoose.Schema.Types.Mixed, required: true },
     isVisible: { type: Boolean, default: true },
   },
   {
     timestamps: true, // Otomatis membuat createdAt dan updatedAt
-  }
+  },
+  
+  
 );
 
 module.exports = mongoose.model('Masukan', masukanSchema);

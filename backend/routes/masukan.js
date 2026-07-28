@@ -116,5 +116,42 @@ router.patch('/:id/toggle', async (req, res) => {
     });
   }
 });
+const Setting = require('../models/Setting');
+
+// 🟢 [GET] /api/masukan/setting - Ambil status ON/OFF fitur (Diakses oleh Guest & Admin)
+router.get('/setting', async (req, res) => {
+  try {
+    let setting = await Setting.findOne({ key: 'show_masukan' });
+    if (!setting) {
+      // Default pertama kali true (ditampilkan)
+      setting = await Setting.create({ key: 'show_masukan', value: true });
+    }
+    return res.status(200).json({
+      success: true,
+      showMasukan: setting.value,
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+// 🟡 [PATCH] /api/masukan/setting - Ubah status ON/OFF fitur (Diatur oleh Admin)
+router.patch('/setting', async (req, res) => {
+  try {
+    const { showMasukan } = req.body;
+    let setting = await Setting.findOneAndUpdate(
+      { key: 'show_masukan' },
+      { value: showMasukan },
+      { new: true, upsert: true }
+    );
+    return res.status(200).json({
+      success: true,
+      showMasukan: setting.value,
+      message: `Fitur Beri Masukan berhasil ${setting.value ? 'Diaktifkan' : 'Dimatikan'}`,
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+});
 
 module.exports = router;
